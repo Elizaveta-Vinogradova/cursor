@@ -78,10 +78,10 @@ def _play_foxy_like_animation() -> None:
 
     for _ in range(2):
         for fr in frames:
-            _clear_screen()
             print(fr)
+            print()
             time.sleep(0.12)
-    _clear_screen()
+
 
 
 _PHILOSOPHY_TEXT = (
@@ -107,32 +107,30 @@ _ASCII_CAT = r"""
 
 
 def main(argv: list[str]) -> int:
+
     # Ensure Unicode output works on Windows consoles with legacy code pages.
     try:
         sys.stdout.reconfigure(encoding="utf-8")
     except Exception:
         pass
-
     if len(argv) < 2:
         prog = argv[0] if argv else "main.py"
         print(f"Usage: {prog} <text>")
         print('Example: python main.py "Hello, World!"')
         return 2
-
     text = " ".join(argv[1:])
 
     # Special case: if input contains 'hello', show meme phrase instead of answer.
     if "hello" in text.lower():
         print(_ASCII_CAT)
         print()
-        if random.random() < 0.001:
+        if random.random() < 0.2:
             _play_foxy_like_animation()
         print("Ah shit, here we go again")
         return 0
-
     print(_ASCII_CAT)
     print()
-    if random.random() < 0.001:
+    if random.random() < 0.2:
         _play_foxy_like_animation()
     print(stylize(text))
     print()
