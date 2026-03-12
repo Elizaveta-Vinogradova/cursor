@@ -108,7 +108,7 @@ _ASCII_CAT = r"""
 
 
 # TODO: замените на реальный URL, где лежит ваша картинка "добрый вечер".
-_GOOD_EVENING_URL = "https://example.com/dobryy-vecher-placeholder"
+_GOOD_EVENING_URL = "https://iimg.su/i/KetWwj"
 
 
 def main(argv: list[str]) -> int:
@@ -126,8 +126,15 @@ def main(argv: list[str]) -> int:
     text = " ".join(argv[1:])
 
     # With small probability, open browser with "добрый вечер" image.
-    if random.random() < 0.001:
-        webbrowser.open(_GOOD_EVENING_URL)
+    try:
+        if random.random() < 0.001:
+            ok = webbrowser.open_new_tab(_GOOD_EVENING_URL)
+            print(f"[link] {_GOOD_EVENING_URL}")
+            if not ok:
+                print("[warn] Браузер не открылся автоматически, открой ссылку вручную.")
+    except Exception as exc:
+        print("[error] Не смог открыть браузер:", exc)
+        print(f"[link] {_GOOD_EVENING_URL}")
 
     # Special case: if input contains 'hello', show meme phrase instead of answer.
     if "hello" in text.lower():
