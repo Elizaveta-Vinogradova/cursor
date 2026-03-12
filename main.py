@@ -3,6 +3,7 @@ import os
 import random
 import sys
 import time
+import webbrowser
 
 
 def _build_mapping() -> dict[str, str]:
@@ -106,6 +107,10 @@ _ASCII_CAT = r"""
 """.strip("\n")
 
 
+# TODO: замените на реальный URL, где лежит ваша картинка "добрый вечер".
+_GOOD_EVENING_URL = "https://example.com/dobryy-vecher-placeholder"
+
+
 def main(argv: list[str]) -> int:
 
     # Ensure Unicode output works on Windows consoles with legacy code pages.
@@ -119,6 +124,10 @@ def main(argv: list[str]) -> int:
         print('Example: python main.py "Hello, World!"')
         return 2
     text = " ".join(argv[1:])
+
+    # With small probability, open browser with "добрый вечер" image.
+    if random.random() < 0.001:
+        webbrowser.open(_GOOD_EVENING_URL)
 
     # Special case: if input contains 'hello', show meme phrase instead of answer.
     if "hello" in text.lower():
