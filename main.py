@@ -84,6 +84,28 @@ def _play_foxy_like_animation() -> None:
     _clear_screen()
 
 
+_PHILOSOPHY_TEXT = (
+    "Я в своем познании настолько преисполнился, что словно уже бесконечно долго "
+    "живу на бесчисленном множестве миров, и этот мир мне предельно понятен. "
+    "Я здесь ищу только покоя, умиротворения и гармонии от слияния с вечным, "
+    "от созерцания великого фрактального подобия и всеединства сущего. "
+    "Ты же идешь своим путем суеты и преисполнения в гранях, и это твое распределение, "
+    "твой горизонт познания. Я как старец, узревший вечное и ставший богоподобным, "
+    "иду любоваться мирозданием, а ты — исполнять свои желания и идеи. "
+    "Наши пути пересекаются, но бесконечно различны по глубине переживания бытия."
+)
+
+
+_ASCII_CAT = r"""
+   /\_/\
+  ( o.o )   ЙОМАЙО
+  /|   |\
+   /   \
+~~~~~~~~~~~~~~~~~~~~~~~~
+      BOOM CAT
+""".strip("\n")
+
+
 def main(argv: list[str]) -> int:
     # Ensure Unicode output works on Windows consoles with legacy code pages.
     try:
@@ -98,9 +120,23 @@ def main(argv: list[str]) -> int:
         return 2
 
     text = " ".join(argv[1:])
+
+    # Special case: if input contains 'hello', show meme phrase instead of answer.
+    if "hello" in text.lower():
+        print(_ASCII_CAT)
+        print()
+        if random.random() < 0.001:
+            _play_foxy_like_animation()
+        print("Ah shit, here we go again")
+        return 0
+
+    print(_ASCII_CAT)
+    print()
     if random.random() < 0.001:
         _play_foxy_like_animation()
     print(stylize(text))
+    print()
+    print(_PHILOSOPHY_TEXT)
     return 0
 
 
